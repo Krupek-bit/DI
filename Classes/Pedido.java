@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-
 public class Pedido {
 
     private int idPedido;
@@ -7,7 +6,7 @@ public class Pedido {
     private String status;
     private LocalDateTime dataCriacao;
 
-        public Pedido() {
+    public Pedido() {
     }
 
     public Pedido(int idPedido, int clienteId, String status, LocalDateTime dataCriacao) {
@@ -48,5 +47,4 @@ public class Pedido {
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-
 }
