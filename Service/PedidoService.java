@@ -54,4 +54,20 @@ public class PedidoService {
             );
         }
     }
+    public List<Pedido> listarPedidos() {
 
+        return pedidoDAO.listar();
+
+    }
+
+    public void enviarParaFila(
+            int idPedido
+    ) {
+
+        pedidoDAO.atualizarStatus(
+                idPedido,
+                "FILA"
+        );
+
+    }
+}
