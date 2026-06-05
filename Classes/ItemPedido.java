@@ -24,4 +24,30 @@ public class ItemPedido {
         this.precoUnitario = precoUnitario;
     }
 
-  
+    public ItemPedido(int id, int pedidoId, int produtoId,
+                      int quantidade, double precoUnitario) {
+
+        this(pedidoId, produtoId, quantidade, precoUnitario);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPedidoId() {
+        return pedidoId;
+    }
+
+    public int getProdutoId() {
+        return produtoId;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public double getPrecoUnitario() {
+        return precoUnitario;
+    }
+}
