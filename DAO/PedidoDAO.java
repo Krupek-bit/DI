@@ -36,3 +36,35 @@ public class PedidoDAO {
         }
     }
 
+    public List<Pedido> listar() {
+
+        List<Pedido> pedidos = new ArrayList<>();
+
+        String sql = "SELECT * FROM pedido";
+
+        try (
+                Connection conn = Conexao.conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+
+            while (rs.next()) {
+
+                pedidos.add(
+                        new Pedido(
+                                rs.getInt("id_pedido"),
+                                rs.getInt("cliente_id"),
+                                rs.getString("status"),
+                                rs.getTimestamp("data_criacao")
+                                        .toLocalDateTime()
+                        )
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pedidos;
+    }
+}
