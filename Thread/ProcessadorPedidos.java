@@ -13,3 +13,15 @@ public class ProcessadorPedidos extends Thread {
                         "Verificando pedidos na fila..."
                 );
 
+                Thread.sleep(5000);
+
+            } catch (InterruptedException e) {
+
+                System.out.println(
+                        "Erro na thread: "
+                        + e.getMessage()
+                );
+            }
+        }
+    }
+}
