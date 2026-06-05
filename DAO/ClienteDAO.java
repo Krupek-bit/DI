@@ -28,4 +28,33 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
+    public List<Cliente> listar() {
 
+        List<Cliente> clientes = new ArrayList<>();
+
+        String sql = "SELECT * FROM cliente";
+
+        try (
+                Connection conn = Conexao.conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+
+            while (rs.next()) {
+
+                clientes.add(
+                        new Cliente(
+                                rs.getInt("id_cliente"),
+                                rs.getString("nome"),
+                                rs.getString("email")
+                        )
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientes;
+    }
+}
