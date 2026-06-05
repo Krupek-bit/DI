@@ -2,6 +2,7 @@
 
 Introdução
 O presente projeto tem como objetivo o desenvolvimento de um sistema de gerenciamento de pedidos utilizando Java, JDBC e MySQL. A aplicação foi construída seguindo os requisitos propostos pelo desafio integrador, contemplando conceitos de Programação Orientada a Objetos, persistência de dados em banco relacional, processamento assíncrono e boas práticas de Engenharia de Software. A arquitetura escolhida buscou garantir organização, baixo acoplamento entre componentes, facilidade de manutenção e aderência aos princípios fundamentais da orientação a objetos.
+
 Estrutura do Sistema
 O sistema foi dividido em camadas, separando a interface de usuário, as regras de negócio e o acesso aos dados. Essa abordagem permite que cada componente possua uma responsabilidade específica, reduzindo a dependência entre as partes do sistema. A camada de interface é composta pelos menus executados no console, responsáveis apenas pela interação com o usuário. Nessa camada são realizadas operações como leitura de dados digitados, exibição de mensagens e navegação pelas funcionalidades do sistema. As regras de negócio ficam concentradas em classes específicas de serviço, responsáveis por validar informações, controlar fluxos de execução e garantir o cumprimento dos requisitos funcionais. O acesso ao banco de dados foi centralizado em classes DAO (Data Access Object), responsáveis por executar todas as consultas SQL utilizando JDBC. Com essa separação, nenhuma classe responsável pelos menus possui comandos SQL ou dependências relacionadas ao banco de dados, atendendo integralmente ao requisito de isolamento da interface.
-Modelagem Orientada a Objetos
+
