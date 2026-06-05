@@ -24,3 +24,34 @@ public class PedidoService {
             Pedido pedido,
             List<ItemPedido> itens
     ) {
+
+        for (ItemPedido item : itens) {
+
+            boolean possuiEstoque =
+                    produtoDAO.verificarEstoque(
+                            item.getProdutoId(),
+                            item.getQuantidade()
+                    );
+
+            if (!possuiEstoque) {
+
+                throw new EstoqueInsuficienteException(
+                        "Estoque insuficiente para o produto "
+                                + item.getProdutoId()
+                );
+            }
+        }
+
+        pedidoDAO.salvar(pedido);
+
+        for (ItemPedido item : itens) {
+
+            itemPedidoDAO.salvar(item);
+
+            produtoDAO.baixarEstoque(
+                    item.getProdutoId(),
+                    item.getQuantidade()
+            );
+        }
+    }
+
