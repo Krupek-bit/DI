@@ -54,6 +54,7 @@ public class PedidoService {
             );
         }
     }
+
     public List<Pedido> listarPedidos() {
 
         return pedidoDAO.listar();
