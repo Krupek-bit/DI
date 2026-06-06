@@ -2,7 +2,7 @@ package DAO;
 
 import Classes.Produto;
 import Enums.Categoria;
-import Util.Conexão;
+import Util.Conexao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class ProdutoDAO {
                 "INSERT INTO produto(nome, preco, estoque, categoria) VALUES (?, ?, ?, ?)";
 
         try (
-                Connection conn = Conexão.conectar();
+                Connection conn = Conexao.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
@@ -39,7 +39,7 @@ public class ProdutoDAO {
         String sql = "SELECT * FROM produto";
 
         try (
-                Connection conn = Conexão.conectar();
+                Connection conn = Conexao.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()
         ) {
@@ -72,7 +72,7 @@ public class ProdutoDAO {
             "SELECT estoque FROM produto WHERE id_produto = ?";
 
     try (
-            Connection conn = Conexão.conectar();
+            Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)
     ) {
 
@@ -99,7 +99,7 @@ public class ProdutoDAO {
             "WHERE id_produto = ?";
 
     try (
-            Connection conn = Conexão.conectar();
+            Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)
     ) {
 

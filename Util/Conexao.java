@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexão {
+public class Conexao {
 
     private static final String URL =
             "jdbc:mysql://localhost:3306/sistema_pedidos";
 
-    private static final String USUARIO = "root";
+    private static final String USUARIO = "app";
 
-    private static final String SENHA = "123456";
+    private static final String SENHA = "1234";
 
     public static Connection conectar() throws SQLException {
 
@@ -21,4 +21,13 @@ public class Conexão {
                 SENHA
         );
     }
+
+    static {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        throw new RuntimeException("Driver MySQL não encontrado", e);
+    }
 }
+}
+
