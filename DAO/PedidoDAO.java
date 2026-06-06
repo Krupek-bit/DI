@@ -1,10 +1,9 @@
 package DAO;
 
 import Classes.Pedido;
-import Util.Conexao;
+import Util.Conexão;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class PedidoDAO {
                 "INSERT INTO pedido(cliente_id, status, data_criacao) VALUES (?, ?, ?)";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
@@ -43,7 +42,7 @@ public class PedidoDAO {
         String sql = "SELECT * FROM pedido";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()
         ) {
@@ -67,4 +66,24 @@ public class PedidoDAO {
 
         return pedidos;
     }
+
+    public void atualizarStatus(int idPedido, String status) {
+
+    String sql =
+            "UPDATE pedido SET status = ? WHERE id_pedido = ?";
+
+    try (
+            Connection conn = Conexão.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+    ) {
+
+        stmt.setString(1, status);
+        stmt.setInt(2, idPedido);
+
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}   
 }

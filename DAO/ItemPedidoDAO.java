@@ -1,7 +1,7 @@
 package DAO;
 
 import Classes.ItemPedido;
-import Util.Conexao;
+import Util.Conexão;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ItemPedidoDAO {
                 "INSERT INTO item_pedido(pedido_id, produto_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
@@ -38,7 +38,7 @@ public class ItemPedidoDAO {
                 "SELECT * FROM item_pedido WHERE pedido_id = ?";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 

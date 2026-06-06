@@ -1,4 +1,5 @@
 package Classes;
+import Enums.Categoria;
 
 public class Produto {
 

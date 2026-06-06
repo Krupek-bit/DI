@@ -1,4 +1,4 @@
-import Thread.ProcessadorPedidos;
+package thread;
 
 public class Main {
 

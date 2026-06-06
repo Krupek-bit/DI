@@ -1,7 +1,7 @@
 package DAO;
 
 import Classes.Cliente;
-import Util.Conexao;
+import Util.Conexão;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ClienteDAO {
                 "INSERT INTO cliente(nome, email) VALUES (?, ?)";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
 
@@ -35,7 +35,7 @@ public class ClienteDAO {
         String sql = "SELECT * FROM cliente";
 
         try (
-                Connection conn = Conexao.conectar();
+                Connection conn = Conexão.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()
         ) {

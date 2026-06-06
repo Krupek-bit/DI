@@ -23,11 +23,11 @@ public class Cliente {
 
     private void validar(String nome, String email) {
 
-        if (nome == null || nome.isBlank()) {
+        if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome inválido.");
         }
 
-        if (email == null || email.isBlank() || !email.contains("@")) {
+        if (email == null || email.trim().isEmpty() || !email.contains("@")) {
             throw new IllegalArgumentException("Email inválido.");
         }
     }
