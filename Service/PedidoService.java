@@ -21,39 +21,48 @@ public class PedidoService {
             new ItemPedidoDAO();
 
     public void criarPedido(
-            Pedido pedido,
-            List<ItemPedido> itens
-    ) {
+        Pedido pedido,
+        List<ItemPedido> itens
+) {
 
-        for (ItemPedido item : itens) {
+    for (ItemPedido item : itens) {
 
-            boolean possuiEstoque =
-                    produtoDAO.verificarEstoque(
-                            item.getProdutoId(),
-                            item.getQuantidade()
-                    );
-
-            if (!possuiEstoque) {
-
-                throw new EstoqueInsuficienteException(
-                        "Estoque insuficiente para o produto "
-                                + item.getProdutoId()
+        boolean possuiEstoque =
+                produtoDAO.verificarEstoque(
+                        item.getProdutoId(),
+                        item.getQuantidade()
                 );
-            }
-        }
 
-        pedidoDAO.salvar(pedido);
+        if (!possuiEstoque) {
 
-        for (ItemPedido item : itens) {
-
-            itemPedidoDAO.salvar(item);
-
-            produtoDAO.baixarEstoque(
-                    item.getProdutoId(),
-                    item.getQuantidade()
+            throw new EstoqueInsuficienteException(
+                    "Estoque insuficiente para o produto "
+                            + item.getProdutoId()
             );
         }
     }
+
+    int idPedido =
+            pedidoDAO.salvar(pedido);
+
+    for (ItemPedido item : itens) {
+
+        ItemPedido novoItem =
+                new ItemPedido(
+                        idPedido,
+                        item.getProdutoId(),
+                        item.getQuantidade(),
+                        item.getPrecoUnitario()
+                );
+
+        itemPedidoDAO.salvar(novoItem);
+
+        produtoDAO.baixarEstoque(
+                item.getProdutoId(),
+                item.getQuantidade()
+        );
+    }
+ }
 
     public List<Pedido> listarPedidos() {
 

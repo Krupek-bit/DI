@@ -9,14 +9,17 @@ import java.util.List;
 
 public class PedidoDAO {
 
-    public void salvar(Pedido pedido) {
+    public int salvar(Pedido pedido) {
 
         String sql =
                 "INSERT INTO pedido(cliente_id, status, data_criacao) VALUES (?, ?, ?)";
 
         try (
                 Connection conn = Conexao.conectar();
-                PreparedStatement stmt = conn.prepareStatement(sql)
+                PreparedStatement stmt = conn.prepareStatement(
+                        sql,
+                        Statement.RETURN_GENERATED_KEYS
+                )
         ) {
 
             stmt.setInt(1, pedido.getClienteId());
@@ -30,11 +33,20 @@ public class PedidoDAO {
 
             stmt.executeUpdate();
 
+            ResultSet rs =
+                    stmt.getGeneratedKeys();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
+        return -1;
+    }
+    
     public List<Pedido> listar() {
 
         List<Pedido> pedidos = new ArrayList<>();

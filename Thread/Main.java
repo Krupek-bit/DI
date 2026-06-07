@@ -8,6 +8,13 @@ import java.util.List;
 import Classes.Produto;
 import DAO.ProdutoDAO;
 import Enums.Categoria;
+import Classes.Pedido;
+import DAO.PedidoDAO;
+import Classes.Pedido;
+import Classes.ItemPedido;
+import Service.PedidoService;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -29,6 +36,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ClienteDAO clienteDAO = new ClienteDAO();
         ProdutoDAO produtoDAO = new ProdutoDAO();
+        PedidoDAO pedidoDAO = new PedidoDAO();
+        PedidoService pedidoService = new PedidoService();
 
         int opcao;
 
@@ -39,8 +48,10 @@ public class Main {
             System.out.println("2 - Listar Clientes");
             System.out.println("3 - Cadastrar Produto");
             System.out.println("4 - Listar Produtos");
+            System.out.println("5 - Criar Pedidos");
+            System.out.println("6 - Listar Pedidos");
             System.out.println("0 - Sair");
-            System.out.print("Escolha uma opçao: ");
+            System.out.print("Escolha uma opcao: ");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -86,7 +97,7 @@ public class Main {
                     System.out.print("Nome: ");
                     String nomeProduto = scanner.nextLine();
 
-                    System.out.print("Preço: ");
+                    System.out.print("Preco: ");
                     double preco = scanner.nextDouble();
 
                     System.out.print("Estoque: ");
@@ -139,6 +150,71 @@ public class Main {
                             + p.getCategoria()
                     );
                     }
+                break;
+
+                case 5:
+                    System.out.print("ID do cliente: ");
+                    int clienteId = scanner.nextInt();
+
+                    System.out.print("ID do produto: ");
+                    int produtoId = scanner.nextInt();
+
+                    System.out.print("Quantidade: ");
+                    int quantidade = scanner.nextInt();
+
+                    System.out.print("Preco unitario: ");
+                    double precoUnitario = scanner.nextDouble();
+
+                    scanner.nextLine();
+
+                    Pedido pedido =
+                            new Pedido(
+                                    clienteId,
+                                    "FILA",
+                                    LocalDateTime.now()
+                            );
+
+                    ItemPedido item =
+                            new ItemPedido(
+                                    0,
+                                    produtoId,
+                                    quantidade,
+                                    precoUnitario
+                            );
+
+                    List<ItemPedido> itens =
+                            new ArrayList<>();
+
+                    itens.add(item);
+
+                    pedidoService.criarPedido(
+                            pedido,
+                            itens
+                    );
+
+                    System.out.println(
+                            "Pedido criado com sucesso!"
+                    );
+
+                break;
+
+                case 6:
+                    List<Pedido> pedidos =
+                            pedidoDAO.listar();
+
+                    for (Pedido p : pedidos) {
+
+                        System.out.println(
+                                p.getIdPedido()
+                                + " - Cliente "
+                                + p.getClienteId()
+                                + " - "
+                                + p.getStatus()
+                                + " - "
+                                + p.getDataCriacao()
+                        );
+                    }
+
                 break;
 
                 case 0:

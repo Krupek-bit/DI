@@ -8,7 +8,15 @@ public class Pedido {
     private String status;
     private LocalDateTime dataCriacao;
 
-    public Pedido() {
+    public Pedido(
+        int clienteId,
+        String status,
+        LocalDateTime dataCriacao
+    ) {
+
+    this.clienteId = clienteId;
+    this.status = status;
+    this.dataCriacao = dataCriacao;
     }
 
     public Pedido(int idPedido, int clienteId, String status, LocalDateTime dataCriacao) {
