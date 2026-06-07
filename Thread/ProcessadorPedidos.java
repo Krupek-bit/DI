@@ -9,9 +9,9 @@ public class ProcessadorPedidos extends Thread {
 
             try {
 
-                System.out.println(
+                /*System.out.println(
                         "Verificando pedidos na fila..."
-                );
+                );*/
 
                 Thread.sleep(5000);
 

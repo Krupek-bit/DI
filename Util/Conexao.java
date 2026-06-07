@@ -9,9 +9,9 @@ public class Conexao {
     private static final String URL =
             "jdbc:mysql://localhost:3306/sistema_pedidos";
 
-    private static final String USUARIO = "app";
+    private static final String USUARIO = "root";
 
-    private static final String SENHA = "1234";
+    private static final String SENHA = "";
 
     public static Connection conectar() throws SQLException {
 
