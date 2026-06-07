@@ -5,6 +5,9 @@ import java.util.Scanner;
 import Classes.Cliente;
 import DAO.ClienteDAO;
 import java.util.List;
+import Classes.Produto;
+import DAO.ProdutoDAO;
+import Enums.Categoria;
 
 public class Main {
 
@@ -25,6 +28,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         ClienteDAO clienteDAO = new ClienteDAO();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
 
         int opcao;
 
@@ -79,12 +83,63 @@ public class Main {
                 break;
 
                 case 3:
-                    System.out.println("Cadastrar Produto");
-                    break;
+                    System.out.print("Nome: ");
+                    String nomeProduto = scanner.nextLine();
+
+                    System.out.print("Preço: ");
+                    double preco = scanner.nextDouble();
+
+                    System.out.print("Estoque: ");
+                    int estoque = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Categorias:");
+                    System.out.println("ALIMENTOS");
+                    System.out.println("ELETRONICOS");
+                    System.out.println("LIVROS");
+
+                    System.out.print("Categoria: ");
+                    String categoriaTexto = scanner.nextLine();
+
+                    Categoria categoria =
+                            Categoria.valueOf(
+                                    categoriaTexto.toUpperCase()
+                            );
+
+                    Produto produto =
+                            new Produto(
+                                    nomeProduto,
+                                    preco,
+                                    estoque,
+                                    categoria
+                            );
+
+                    produtoDAO.salvar(produto);
+
+                    System.out.println(
+                            "Produto cadastrado com sucesso!"
+                    );
+                break;
 
                 case 4:
-                    System.out.println("Listar Produtos");
-                    break;
+                    List<Produto> produtos =
+                        produtoDAO.listar();
+
+                    for (Produto p : produtos) {
+
+                    System.out.println(
+                            p.getId()
+                            + " - "
+                            + p.getNome()
+                            + " - R$ "
+                            + p.getPreco()
+                            + " - Estoque: "
+                            + p.getEstoque()
+                            + " - "
+                            + p.getCategoria()
+                    );
+                    }
+                break;
 
                 case 0:
                     System.out.println("Encerrando sistema...");
