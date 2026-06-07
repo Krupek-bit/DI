@@ -111,4 +111,41 @@ public class PedidoDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Pedido> listarPorStatus(String status) {
+
+    List<Pedido> pedidos = new ArrayList<>();
+
+    String sql =
+            "SELECT * FROM pedido WHERE status = ?";
+
+    try (
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+    ) {
+
+        stmt.setString(1, status);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            pedidos.add(
+                    new Pedido(
+                            rs.getInt("id_pedido"),
+                            rs.getInt("cliente_id"),
+                            rs.getString("status"),
+                            rs.getTimestamp("data_criacao")
+                                    .toLocalDateTime()
+                    )
+            );
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return pedidos;
+    }
+
 }
