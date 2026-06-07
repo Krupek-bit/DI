@@ -11,30 +11,24 @@ public class PedidoDAO {
 
     public int salvar(Pedido pedido) {
 
-        String sql =
-                "INSERT INTO pedido(cliente_id, status, data_criacao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pedido(cliente_id, status, data_criacao) VALUES (?, ?, ?)";
 
         try (
                 Connection conn = Conexao.conectar();
                 PreparedStatement stmt = conn.prepareStatement(
                         sql,
-                        Statement.RETURN_GENERATED_KEYS
-                )
-        ) {
+                        Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, pedido.getClienteId());
             stmt.setString(2, pedido.getStatus());
             stmt.setTimestamp(
                     3,
                     Timestamp.valueOf(
-                            pedido.getDataCriacao()
-                    )
-            );
+                            pedido.getDataCriacao()));
 
             stmt.executeUpdate();
 
-            ResultSet rs =
-                    stmt.getGeneratedKeys();
+            ResultSet rs = stmt.getGeneratedKeys();
 
             if (rs.next()) {
                 return rs.getInt(1);
@@ -46,7 +40,7 @@ public class PedidoDAO {
 
         return -1;
     }
-    
+
     public List<Pedido> listar() {
 
         List<Pedido> pedidos = new ArrayList<>();
@@ -56,8 +50,7 @@ public class PedidoDAO {
         try (
                 Connection conn = Conexao.conectar();
                 PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery()
-        ) {
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
 
@@ -67,9 +60,7 @@ public class PedidoDAO {
                                 rs.getInt("cliente_id"),
                                 rs.getString("status"),
                                 rs.getTimestamp("data_criacao")
-                                        .toLocalDateTime()
-                        )
-                );
+                                        .toLocalDateTime()));
             }
 
         } catch (SQLException e) {
@@ -81,21 +72,43 @@ public class PedidoDAO {
 
     public void atualizarStatus(int idPedido, String status) {
 
-    String sql =
-            "UPDATE pedido SET status = ? WHERE id_pedido = ?";
+        String sql = "UPDATE pedido SET status = ? WHERE id_pedido = ?";
 
-    try (
-            Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)
-    ) {
+        try (
+                Connection conn = Conexao.conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setString(1, status);
-        stmt.setInt(2, idPedido);
+            stmt.setString(1, status);
+            stmt.setInt(2, idPedido);
 
-        stmt.executeUpdate();
+            stmt.executeUpdate();
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}   
+
+    public void excluir(int idPedido) {
+
+        try (
+                Connection conn = Conexao.conectar()) {
+
+            String sqlItens = "DELETE FROM item_pedido WHERE pedido_id = ?";
+
+            PreparedStatement stmtItens = conn.prepareStatement(sqlItens);
+
+            stmtItens.setInt(1, idPedido);
+            stmtItens.executeUpdate();
+
+            String sqlPedido = "DELETE FROM pedido WHERE id_pedido = ?";
+
+            PreparedStatement stmtPedido = conn.prepareStatement(sqlPedido);
+
+            stmtPedido.setInt(1, idPedido);
+            stmtPedido.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

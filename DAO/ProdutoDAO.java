@@ -87,9 +87,8 @@ public class ProdutoDAO {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
-    return false;
-}
+        return false;
+    }
 
     public void baixarEstoque(int produtoId, int quantidade) {
 
@@ -110,7 +109,24 @@ public class ProdutoDAO {
 
     } catch (SQLException e) {
         e.printStackTrace();
+    }}
+
+    public void excluir(int idProduto){
+        String sql = 
+                "DELETE FROM produto WHERE id_produto = ?";
+        
+        try (
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+        ){
+            stmt.setInt(1, idProduto);
+
+            stmt.executeUpdate();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
+
 }
 
