@@ -26,3 +26,17 @@ Seguindo os requisitos estabelecidos no projeto, a thread responsável pelo proc
 
 Conclusão
 O desenvolvimento do sistema permitiu a aplicação prática dos conceitos estudados ao longo do semestre, envolvendo Programação Orientada a Objetos, modelagem de banco de dados, JDBC, controle transacional e processamento concorrente. A arquitetura adotada proporcionou uma clara separação de responsabilidades entre os componentes, facilitando a manutenção do código e garantindo aderência aos requisitos técnicos definidos para o projeto. O uso de validações nas entidades, persistência segura com JDBC, processamento assíncrono por meio de threads independentes e modelagem relacional normalizada resultou em uma solução robusta, organizada e alinhada às boas práticas de Engenharia de Software.
+
+
+
+
+COMO CONECTAR NO BANCO
+
+Para conectar um projeto Java a um banco de dados MySQL (ou MariaDB), primeiro é necessário garantir que o servidor do banco esteja instalado e em execução. Normalmente isso é feito por meio do XAMPP ou de uma instalação direta do MySQL Server. O serviço precisa estar ativo e rodando na porta padrão 3306, pois é por ela que a aplicação Java irá se comunicar com o banco.
+Depois disso, é preciso criar o banco de dados dentro do MySQL. Esse banco será onde as tabelas do sistema vão ficar armazenadas. Também é recomendável criar um usuário específico para a aplicação, em vez de usar o root. Esse usuário recebe permissões apenas no banco necessário, o que evita problemas de segurança e de autenticação.
+
+Em seguida, deve-se baixar o driver JDBC do MySQL, chamado MySQL Connector/J. Esse arquivo é um .jar que permite que o Java “entenda” o MySQL. Ele precisa ser adicionado ao classpath do projeto, ou seja, o Java precisa saber onde esse arquivo está para conseguir usá-lo durante a execução.
+Com tudo isso pronto, é criado no código Java uma classe de conexão. Nela é definida a URL do banco, que contém o endereço do servidor, a porta e o nome do banco de dados. Também são informados o usuário e a senha que serão usados na conexão. Dentro dessa classe, utiliza-se o DriverManager para abrir a conexão com o banco. Além disso, o driver JDBC é carregado para garantir que o Java reconheça o MySQL corretamente.
+
+Por fim, ao executar o projeto, o Java utiliza essa configuração para se conectar ao banco. Se todos os dados estiverem corretos e o servidor estiver ativo, a conexão é estabelecida com sucesso e o sistema pode executar operações como inserir, buscar, atualizar e deletar dados no banco.
+Em resumo, a conexão entre Java e MySQL depende de quatro pontos principais: o banco estar rodando, o driver JDBC estar configurado, a URL de conexão estar correta e as credenciais de acesso (usuário e senha) estarem válidas.
